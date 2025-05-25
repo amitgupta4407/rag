@@ -1,0 +1,267 @@
+/* ui/styles/main.css */
+
+/* Main App Styling */
+.main-header {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    padding: 1rem;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+/* Chat Interface Styling */
+.chat-message {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.user-message {
+    background-color: #f0f2f6;
+    border-left-color: #667eea;
+}
+
+.assistant-message {
+    background-color: #e8f4fd;
+    border-left-color: #2196f3;
+}
+
+/* File Upload Styling */
+.upload-zone {
+    border: 2px dashed #cccccc;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.upload-zone:hover {
+    border-color: #667eea;
+    background-color: #f8f9fa;
+}
+
+.upload-success {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+.upload-error {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+}
+
+/* Document Cards */
+.document-card {
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.document-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.document-title {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.document-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Status Indicators */
+.status-success {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-error {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-warning {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.status-info {
+    color: #17a2b8;
+    font-weight: bold;
+}
+
+/* Settings Panel */
+.settings-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.settings-header {
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Progress Bars */
+.progress-container {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    height: 8px;
+    transition: width 0.3s ease;
+}
+
+/* Buttons Styling */
+.btn-primary {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-danger {
+    background: #dc3545;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Source References */
+.source-reference {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.source-title {
+    font-weight: bold;
+    color: #1976d2;
+}
+
+/* Chunk Display */
+.chunk-container {
+    background: #f5f5f5;
+    border-left: 3px solid #667eea;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.chunk-header {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.chunk-text {
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+.chunk-similarity {
+    font-size: 0.75rem;
+    color: #17a2b8;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* Loading States */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .document-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .main-header {
+        padding: 0.5rem;
+    }
+    
+    .document-card {
+        margin: 0.25rem 0;
+        padding: 0.75rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .document-card {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .settings-section {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .chunk-container {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+}
