@@ -6,7 +6,11 @@ from abc import ABC, abstractmethod
 import requests
 import json
 from src.config import Config
-from google import genai
+from openai import OpenAI
+import os
+
+
+# OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
 
 logger = logging.getLogger(__name__)
 
@@ -26,69 +30,62 @@ class BaseLLMHandler(ABC):
 
 
 
-class GeminiHandler(BaseLLMHandler):
-    """Handle Gemini API interactions"""
+class OpenAIHandler(BaseLLMHandler):
+    """Handle OPENROUTER/OpenAI API interactions"""
     
     def __init__(self):
-        self.api_key = Config.GEMINI_API_KEY
-        self.base_url = "https://generativelanguage.googleapis.com/v1beta"
+        self.api_key = Config.OPENROUTER_API_KEY
+        self.base_url = "https://openrouter.ai/api/v1",
     
     def generate_response(self, prompt: str, context: str = "", **kwargs) -> Optional[str]:
-        """Generate response using Gemini API"""
+        """Generate response using OpenAI/openrouter API"""
         if not self.is_available():
-            logger.error("Gemini API key not configured")
+            logger.error("Openrouter/OpenAI API key not configured")
             return None
         
         try:
-            # import google.generativeai as genai
-            # genai.configure(api_key=self.api_key)
-            
-            # model = genai.GenerativeModel('gemini-pro')
-            
-            from google import genai
-            # Combine context and prompt
-            client = genai.Client(api_key=self.api_key)
-            
 
-            full_prompt = self._build_prompt(context, prompt)
-            # response = model.generate_content(full_prompt)
-            print(f"""
-                +++++++++++++++++++++++++++++++++++++
-                  {full_prompt}
-                +++++++++++++++++++++++++++++++++++++
-                  """)
-            response = client.models.generate_content(
-                        model="gemini-2.0-flash",
-                        contents=full_prompt,
-                    )
-            
-            print(response.text)
+            client = OpenAI(
+                base_url="https://openrouter.ai/api/v1",
+                api_key=self.api_key,
+                )
+            completion = client.chat.completions.create(
+            # model="moonshotai/kimi-dev-72b:free",
+            model="google/gemini-2.0-flash-exp:free",
+            messages=[
+                        {
+                        "role": "user",
+                        "content": self._build_prompt(context, prompt)
+                        }
+                    ]
+            )
 
-            if response.text:
-                return response.text
+            if completion.choices[0].message.content:
+                return completion.choices[0].message.content
+                
             else:
-                logger.error("Empty response from Gemini")
+                logger.error("Empty response from OpenAi/Openrouter")
                 return None
                 
         except Exception as e:
-            logger.error(f"Error with Gemini API: {str(e)}")
+            logger.error(f"Error with OpenAI/openrouter API: {str(e)}")
             return None
     
     def is_available(self) -> bool:
-        """Check if Gemini API is configured"""
+        """Check if OPENROUTER API is configured"""
         return bool(self.api_key)
     
     def _build_prompt(self, context: str, question: str) -> str:
-        """Build the prompt for Gemini"""
+        """Build the prompt for OpenAi"""
         if context:
             return f"""You are a helpful assistant that answers questions based on the provided context.
 
-Context:
-{context}
+                    Context:
+                    {context}
 
-Question: {question}
+                    Question: {question}
 
-Please provide a comprehensive answer based on the context above. If the context doesn't contain relevant information, please say so."""
+                    Please provide a comprehensive answer based on the context above. If the context doesn't contain relevant information, please say so."""
         else:
             return question
 
@@ -168,7 +165,7 @@ class LLMManager:
     
     def __init__(self):
         self.handlers = {
-            "gemini": GeminiHandler(),
+            "openAi": OpenAIHandler(),
             "ollama": OllamaHandler()
         }
         self.default_handler = None

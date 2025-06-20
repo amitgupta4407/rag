@@ -38,35 +38,35 @@ class SettingsComponent:
         """Render LLM configuration settings"""
         st.subheader("🤖 Language Model Configuration")
         
-        # Gemini Settings
-        with st.expander("🔹 Gemini Configuration"):
+        # OpenAi/Openrouter Settings
+        with st.expander("🔹 OpenAi/Openrouter Configuration"):
             st.write("**Current Status:**")
-            if Config.GEMINI_API_KEY:
+            if Config.OPENROUTER_API_KEY:
                 st.success("✅ API Key configured")
             else:
                 st.warning("⚠️ No API Key configured")
             
-            gemini_key = st.text_input(
-                "Gemini API Key",
-                value=Config.GEMINI_API_KEY[:20] + "..." if Config.GEMINI_API_KEY else "",
+            openai_key = st.text_input(
+                "OpenAi/Openrouter API Key",
+                value=Config.OPENROUTER_API_KEY[:20] + "..." if Config.OPENROUTER_API_KEY else "",
                 type="password",
                 help="Get your API key from Google AI Studio"
             )
             
-            if st.button("Test Gemini Connection"):
-                if gemini_key and gemini_key != Config.GEMINI_API_KEY[:20] + "...":
+            if st.button("Test OpenAi/Openrouter Connection"):
+                if openai_key and openai_key != Config.OPENROUTER_API_KEY[:20] + "...":
                     # Update config temporarily
-                    original_key = Config.GEMINI_API_KEY
-                    Config.GEMINI_API_KEY = gemini_key
+                    original_key = Config.OPENROUTER_API_KEY
+                    Config.OPENROUTER_API_KEY = openai_key
                     
                     # Test connection
-                    from src.models.llm_handler import GeminiHandler
-                    handler = GeminiHandler()
+                    from src.models.llm_handler import OpenAIHandler
+                    handler = OpenAIHandler()
                     if handler.is_available():
-                        st.success("✅ Gemini connection successful!")
+                        st.success("✅ OpenAi/Openrouter connection successful!")
                     else:
-                        st.error("❌ Failed to connect to Gemini")
-                        Config.GEMINI_API_KEY = original_key
+                        st.error("❌ Failed to connect to OpenAi/Openrouter")
+                        Config.OPENROUTER_API_KEY = original_key
                 else:
                     st.info("Please enter a new API key to test")
         
@@ -197,7 +197,7 @@ class SettingsComponent:
         with st.expander("Environment Variables"):
             st.write("**Current Environment:**")
             env_vars = [
-                "GEMINI_API_KEY",
+                "OPENROUTER_API_KEY",
                 "OLLAMA_BASE_URL", 
                 "OLLAMA_MODEL",
                 "STORAGE_TYPE",

@@ -21,7 +21,7 @@ class RAGGenerator:
             # Check if LLM is available
             if not self.llm_manager.is_any_available():
                 return {
-                    "answer": "No language model is currently available. Please configure Gemini API key or ensure Ollama is running.",
+                    "answer": "No language model is currently available. Please configure OpenAi API key or ensure Ollama is running.",
                     "sources": [],
                     "chunks": [],
                     "error": "No LLM available"

@@ -4,7 +4,9 @@ from pathlib import Path
 from typing import Literal
 from dotenv import load_dotenv
 
-# Load environment variables
+# Explicitly load the .env file from the project root
+# env_path = Path(__file__).resolve().parent.parent / ".env"
+# load_dotenv(dotenv_path=env_path)
 load_dotenv()
 
 class Config:
@@ -18,7 +20,7 @@ class Config:
     CHAT_HISTORY_DIR = DATA_DIR / "chat_history"
     
     # LLM Configuration
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+    OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
     OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama2")
     
@@ -62,8 +64,8 @@ class Config:
         errors = []
         
         # Check if at least one LLM is configured
-        if not cls.GEMINI_API_KEY and not cls._is_ollama_available():
-            errors.append("No LLM configured. Please set GEMINI_API_KEY or ensure Ollama is running.")
+        if not cls.OPENROUTER_API_KEY and not cls._is_ollama_available():
+            errors.append("No LLM configured. Please set OPENROUTER_API_KEY or ensure Ollama is running.")
         
         # Check storage type
         if cls.STORAGE_TYPE not in ["memory", "local"]:
@@ -102,8 +104,8 @@ class Config:
         """Get list of available LLMs"""
         available = []
         
-        if cls.GEMINI_API_KEY:
-            available.append("gemini")
+        if cls.OPENROUTER_API_KEY:
+            available.append("openAi")
             
         if cls._is_ollama_available():
             available.append("ollama")

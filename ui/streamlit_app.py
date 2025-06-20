@@ -60,7 +60,7 @@ class RAGPipelineApp:
         
         # Check if any LLM is available
         if not self.rag_generator.llm_manager.is_any_available():
-            st.error("❌ No language model is available. Please configure Gemini API key or ensure Ollama is running.")
+            st.error("❌ No language model is available. Please configure OpenAi/Openrouter API key or ensure Ollama is running.")
             st.info("💡 Check the Settings tab to configure your LLM.")
         
         # Create tabs
