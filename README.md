@@ -56,3 +56,6 @@ rag-pdf-pipeline/
     └── run.bat
 ```
 
+## Work flow
+
+![System Architecture Diagram](static/diagram.png)
